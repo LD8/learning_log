@@ -8,6 +8,7 @@
 </head>
 <body>
     <nav>
+        <a href="{% url 'learning_logs:index' %}">Learning Log</a> -
         <a href="{% url 'learning_logs:topics' %}">Topics</a> >
         {% if entry %}
         <a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{ entry.topic }}</a>

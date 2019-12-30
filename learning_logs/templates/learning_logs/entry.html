@@ -2,6 +2,7 @@
 
 {% block content %}
 <h4><a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{entry.topic}}</a> > {{ entry.title }}</h4>
-<p>{{ entry.text }}</p>
-<span><a href="#">edit</a></span>
+<p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
+<p>{{ entry.text | linebreaks }}</p>
+<a href="#">edit</a>
 {% endblock content %}

@@ -6,5 +6,5 @@
     <li><a href="{% url 'learning_logs:topic' topic.pk %}">{{ topic.text }}</a></li>
     {% endfor %}
 </ul>
-<a href="#">Add a new topic</a>
+<a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
 {% endblock content %}

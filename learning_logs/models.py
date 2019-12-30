@@ -1,4 +1,5 @@
 from django.db import models
+import time
 
 # Create your models here.
 
@@ -16,7 +17,7 @@ class Topic(models.Model):
 class Entry(models.Model):
     '''An entry tied to a topic'''
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, default='Note - {}'.format(time.strftime('%b %d, %Y')))
     text = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
 
