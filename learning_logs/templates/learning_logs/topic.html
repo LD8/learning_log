@@ -5,11 +5,11 @@
 <ul>
     {% for entry in entries %}
     <li>
-        <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}">{{ entry.title }}</a>
+        <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}">{{ entry.title }}</a> - 
+        <a href="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}">edit</a>
         <p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
         <!-- | is a template filter: a function modifies the value in a template variable -->
         <p>{{ entry.text | linebreaks }}</p>
-        <!-- <a href="{% url 'learning_logs:edit_entry'">edit</a> -->
     </li>
     {% endfor %}
 </ul>

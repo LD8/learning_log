@@ -4,5 +4,5 @@
 <h4><a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{entry.topic}}</a> > {{ entry.title }}</h4>
 <p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
 <p>{{ entry.text | linebreaks }}</p>
-<a href="#">edit</a>
+<a href="{% url 'learning_logs:edit_entry' entry.topic.pk entry.pk %}">edit</a>
 {% endblock content %}

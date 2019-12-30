@@ -75,5 +75,26 @@ def new_entry(request, topic_pk):
     return render(request, 'learning_logs/new_entry.html', context)
 
 
-def edit_entry(request, entry_pk):
-    pass
+def edit_entry(request, topic_pk, entry_pk):
+    '''edit an existing entry under a specific topic'''
+    # get the correct topic object under which get the correct entry as well
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    try:
+        entry = topic.entry_set.get(pk=entry_pk)
+    except:
+        raise Http404
+    
+    if request.method != 'POST':
+        # create a blank form and fill in the data from the entry (the instance)
+        form = EntryForm(instance=entry)
+    else:
+        # !!! this is to fill in the existing data and update it with new data received from request.POST !!!
+        # but why fill it in again??? can instance=entry be deleted???
+        form = EntryForm(instance=entry, data=request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('learning_logs:topic', topic_pk=topic_pk)
+
+    # render the form with existing entry's data
+    context = {'form': form, 'topic': topic, 'entry': entry}
+    return render(request, 'learning_logs/edit_entry.html', context)
