@@ -1,0 +1,7 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+<h4><a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{entry.topic}}</a> > {{ entry.title }}</h4>
+<p>{{ entry.text }}</p>
+<span><a href="#">edit</a></span>
+{% endblock content %}
