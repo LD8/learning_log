@@ -1,16 +1,23 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-<h2>Learning Logs</h2>
-<p>This is an app to help you learn more efficiently. You can add topics you are learning and make entries under
-    each topic to record your learning process, questions and solutions... And many more functions for you to
-    discover.</p>
-{% if user.is_authenticated %}
-<div class="container text-center">
-    <p class="text-info text-center p-3">Hello, {{ user.username }}! Welcome back!</p>
-    <a href="{% url 'learning_logs:topics' %}" class="btn btn-info ">View Your Topics</a>
-</div>
-{% else %}
-<a class="btn btn-primary" href="{% url 'users:register' %}">Register</a>
-{% endif %}
+<section class="container">
+    <h2 class="font-weight-light">Learning Logs</h2>
+
+    <p class="font-weight-light">This is an app to help you learn more efficiently. You can add topics you are learning
+        and
+        make entries under
+        each topic to record your learning process, questions and solutions... And many more functions for you to
+        discover.</p>
+    {% if user.is_authenticated %}
+    <div class="container text-center">
+        <p class="text-info text-center p-3">Hello, {{ user.username }}! Welcome back!</p>
+        <a class="btn btn-info px-5" href="{% url 'learning_logs:topics' %}" >View Your Topics</a>
+    </div>
+    {% else %}
+    <a class="btn btn-info px-4 py-2" href="{% url 'users:register' %}">Register</a>
+    {% endif %}
+    <br>
+</section>
+
 {% endblock content %}

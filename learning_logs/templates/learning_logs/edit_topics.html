@@ -2,18 +2,20 @@
 
 {% block content %}
     <h3>Topics you have created</h3>
+    <hr>
     <ul class="">
         {% for form in topic_lst %}
         <li class="mb-5">
-            <form class="d-flex align-items-center" 
+            <form class="" 
             action="{% url 'learning_logs:edit_topic' form.instance.pk %}" 
             method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
-                <button class="btn btn-primary" name="save">save</button>
+                {{ form }}
+                <button class="btn btn-info" name="save">save</button>
                 <button class="btn btn-danger" name="delete">delete</button>
             </form>
         </li>
+        <hr>
         {% endfor %}
     </ul>
     <a class="btn btn-info" href="{% url 'learning_logs:topics' %}">Done</a>

@@ -132,7 +132,7 @@ def edit_topics(request, topic_pk=None):
         elif 'delete' in request.POST:
             topic_to_delete = get_object_or_404(Topic, pk=topic_pk)
             topic_to_delete.delete()
-        # return redirect('learning_logs:edit_topics')
+        # return redirect('learning_logs:edit_topics')  # this line is redundant
 
     # get the original/modified data (which only belongs to the current user) passing to render
     topics = Topic.objects.filter(owner=request.user).order_by('-date_added')
@@ -142,3 +142,47 @@ def edit_topics(request, topic_pk=None):
         topic_lst.append(form)
     context = {'topics': topics, 'topic_lst': topic_lst}
     return render(request, 'learning_logs/edit_topics.html', context)
+
+
+@login_required
+def edit_topic_page(request, topic_pk, entry_pk=None):
+    '''editing the topic name or editing/deleting entry names under that topic'''
+    # get the correct topic object 
+    topic = get_object_or_404(Topic, pk=topic_pk)
+
+    # check if the topic's owner is the logged-in user
+    if request.user != topic.owner:
+        raise Http404
+
+    # create a form with the topic's data in it, pass in to render
+    topic_form = TopicForm(instance=topic)
+
+    if request.method == 'POST':
+
+        if entry_pk == None and 'submit' in request.POST:
+            # user must have edited topic name, change topic name
+            topic_form = TopicForm(instance=topic, data=request.POST)
+            if topic_form.is_valid():
+                topic_form.save()
+
+        elif entry_pk != None:
+            entry = get_object_or_404(Entry, pk=entry_pk)
+            if 'save' in request.POST:
+                # user have edited an entry's name, change it
+                entry_form = EntryForm(instance=entry, data=request.POST)
+                if entry_form.is_valid():
+                    entry_form.save()
+            
+            if 'delete' in request.POST:
+                # user wants to delete an entry
+                entry.delete()
+
+    # get the original/modified entries (which only belongs to the current user)
+    # convert them into forms
+    entries = topic.entry_set.order_by('-date_added')
+    entry_lst = []
+    for entry in entries:
+        form = EntryForm(instance=entry)
+        entry_lst.append(form)
+    context = {'topic_form': topic_form, 'entry_lst': entry_lst}
+    return render(request, 'learning_logs/edit_topic_page.html', context)

@@ -1,17 +1,26 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-<h3>{{ topic }} <small><a href="#">edit</a></small></h3>
-<ul>
+<h1 class="d-flex text-dark font-weight-light">
+    {{ topic }}
+    <small class="ml-auto">
+        <a class="btn btn-outline-info" href="{% url 'learning_logs:edit_topic_page' topic.pk %}">edit entries</a>
+    </small>
+</h1>
+<hr>
+<ul class="list-group">
     {% for entry in entries %}
-    <li>
-        <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}">{{ entry.title }}</a> - 
-        <a href="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}">edit</a>
+    <li class="list-group-item list-group-item-action">
+        <div class="d-flex">
+            <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}"><h5 class="font-weight-light">{{ entry.title }}</h5></a>
+            <a class="ml-auto btn btn-outline-secondary" href="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}">edit</a>
+        </div>
         <p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
         <!-- | is a template filter: a function modifies the value in a template variable -->
         <p>{{ entry.text | linebreaks }}</p>
     </li>
     {% endfor %}
 </ul>
-<a href="{% url 'learning_logs:new_entry' topic.pk %}">Add a new entry</a>
+<hr>
+<a class="btn btn-info mt-3" href="{% url 'learning_logs:new_entry' topic.pk %}">Add a new entry</a>
 {% endblock content %}
