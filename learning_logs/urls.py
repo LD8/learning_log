@@ -4,14 +4,13 @@ from . import views
 app_name="learning_logs"
 urlpatterns = [
     path('', views.index, name='index'),
-
-
-
     path('topics/', views.topics, name='topics'),
+
+    # use the same view function, however, 
+    # called different name for different functionality i.e. an optional argument in this case
     path('topics/edit/', views.edit_topics, name='edit_topics'),
+    path('topics/edit/<int:topic_pk>', views.edit_topics, name='edit_topic'),
     
-
-
     path('new_topic/', views.new_topic, name='new_topic'),
     path('topic_<int:topic_pk>/', views.topic, name='topic'),
     path('topic_<int:topic_pk>/new_entry/', views.new_entry, name='new_entry'),

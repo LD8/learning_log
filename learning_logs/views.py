@@ -123,7 +123,7 @@ def edit_entry(request, topic_pk, entry_pk):
 def edit_topics(request, topic_pk=None):
     '''edit existing topics mainly the names'''
     # modify the model data according to the request method and name
-    if request.method == 'POST' and topic_pk:
+    if request.method == 'POST' and topic_pk != None:
         if 'save' in request.POST:
             topic_to_change = get_object_or_404(Topic, pk=topic_pk)
             form = TopicForm(instance=topic_to_change, data=request.POST)
@@ -132,7 +132,7 @@ def edit_topics(request, topic_pk=None):
         elif 'delete' in request.POST:
             topic_to_delete = get_object_or_404(Topic, pk=topic_pk)
             topic_to_delete.delete()
-        return redirect('learning_logs:edit_topics')
+        # return redirect('learning_logs:edit_topics')
 
     # get the original/modified data (which only belongs to the current user) passing to render
     topics = Topic.objects.filter(owner=request.user).order_by('-date_added')
