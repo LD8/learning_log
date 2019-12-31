@@ -1,7 +1,6 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-<section class="container">
     <h3>Topics you have created</h3>
     <ul class="">
         {% for form in topic_lst %}
@@ -18,6 +17,6 @@
         {% endfor %}
     </ul>
     <a class="btn btn-info" href="{% url 'learning_logs:topics' %}">Done</a>
-</section>
+
 
 {% endblock content %}

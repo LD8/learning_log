@@ -1,7 +1,6 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-<section class="container">
     <h3>Topics you have created - <small><a href="{% url 'learning_logs:edit_topics' %}">edit</a></small></h3>
     <ul>
         {% for topic in topics %}
@@ -9,6 +8,4 @@
         {% endfor %}
     </ul>
     <a href="{% url 'learning_logs:new_topic' %}">Add a new topic</a>
-
-</section>
 {% endblock content %}

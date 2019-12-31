@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
     <link rel="stylesheet" href="{% static 'learning_logs/css/bootstrap.min.css' %}">
     <title>Learning Log</title>
 </head>
+
 <body>
     <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a> 
+        <a class="navbar-brand" href="{% url 'learning_logs:index' %}">Learning Log</a>
         <a href="{% url 'learning_logs:topics' %}">Topics</a> >
         {% if entry %}
         <a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{ entry.topic }}</a>
@@ -23,6 +25,10 @@
         {% endif %}
     </nav>
 
-    {% block content %}{% endblock content %}
+
+    <section class="container p-5 mt-5 mx-auto rounded-lg" style="background-color: rgba(235, 228, 203, 0.653);">
+        {% block content %}{% endblock content %}
+    </section>
 </body>
+
 </html>

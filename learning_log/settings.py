@@ -123,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# My settings
+LOGIN_URL = 'users:login' # Django will send the user to this URL if the user hasn't loggin in but wants to access the @login_required view functions

@@ -1,8 +1,9 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block content %}
-<a href="{% url 'learning_logs:topic' topic.pk %}">{{ topic }}</a> > 
-<p>Add a new Entry here:</p>
+<div class="d-flex">
+    <a href="{% url 'learning_logs:topic' topic.pk %}">{{ topic }} </a><p> > Add a new Entry here:</p>
+</div>
 <form action="{% url 'learning_logs:new_entry' topic.pk %}" method="POST">
     {% csrf_token %}
     {{ form.as_p }}
