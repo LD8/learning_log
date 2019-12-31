@@ -98,3 +98,26 @@ def edit_entry(request, topic_pk, entry_pk):
     # render the form with existing entry's data
     context = {'form': form, 'topic': topic, 'entry': entry}
     return render(request, 'learning_logs/edit_entry.html', context)
+
+def edit_topics(request, topic_pk=None):
+    '''edit existing topics mainly the names'''
+    # modify the model data according to the request method and name
+    if request.method == 'POST' and topic_pk:
+        if 'save' in request.POST:
+            topic_to_change = get_object_or_404(Topic, pk=topic_pk)
+            form = TopicForm(instance=topic_to_change, data=request.POST)
+            if form.is_valid():
+                form.save()
+        elif 'delete' in request.POST:
+            topic_to_delete = get_object_or_404(Topic, pk=topic_pk)
+            topic_to_delete.delete()
+        return redirect('learning_logs:edit_topics')
+    
+    # get the original/modified data passing to render
+    topics = Topic.objects.all()
+    topic_lst = []
+    for topic in topics:
+        form = TopicForm(instance=topic)
+        topic_lst.append(form)
+    context = {'topics': topics, 'topic_lst': topic_lst}
+    return render(request, 'learning_logs/edit_topics.html', context)

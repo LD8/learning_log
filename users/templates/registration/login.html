@@ -1,0 +1,16 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+<section class="container text-center my-5">
+    <h3 class="pb-3">Log In</h3>
+    <!-- {% if form.errors %}
+    <p>Please check your username and password and try again.</p>
+    {% endif %} -->
+    <form action="{% url 'users:login' %}" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Log In</button>
+        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+    </form>
+</section>
+{% endblock content %}

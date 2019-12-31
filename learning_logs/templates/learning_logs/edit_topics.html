@@ -1,0 +1,23 @@
+{% extends 'learning_logs/base.html' %}
+
+{% block content %}
+<section class="container">
+    <h3>Topics you have created</h3>
+    <ul class="">
+        {% for form in topic_lst %}
+        <li class="mb-5">
+            <form class="d-flex align-items-center" 
+            action="{% url 'learning_logs:edit_topics' form.instance.pk %}" 
+            method="POST">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button class="btn btn-primary" name="submit">save</button>
+                <button class="btn btn-danger" name="delete">delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <a class="btn btn-info" href="{% url 'learning_logs:topics' %}">Done</a>
+</section>
+
+{% endblock content %}
