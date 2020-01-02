@@ -1,15 +1,16 @@
 {% extends 'learning_logs/base.html' %}
 
 {% block header %}
-<h1 class="text-dark font-weight-light">
+<h2 class="text-dark font-weight-light">
     {{ topic }}
-</h1>
+</h2>
 {% endblock header %}
 
 {% block content %}
 <div class="mb-3">
     <a class="btn btn-info btn-sm" href="{% url 'learning_logs:new_entry' topic.pk %}">add a new entry</a>
-    <a class="btn btn-outline-info btn-sm float-right" href="{% url 'learning_logs:edit_topic_page' topic.pk %}">edit entries</a>
+    <a class="btn btn-outline-info btn-sm float-right" href="{% url 'learning_logs:edit_topic_page' topic.pk %}">edit
+        entries</a>
 </div>
 {% for entry in entries %}
 <li class="card mb-1">
@@ -26,6 +27,8 @@
         <p class="text-muted">{{ entry.date_added | date:'H:i M-d-y' }}</p>
     </div>
 </li>
+{% empty %}
+<p class="text-muted">There are no entries for this topic yet. Please add a new entry.</p>
 {% endfor %}
 
 {% endblock content %}

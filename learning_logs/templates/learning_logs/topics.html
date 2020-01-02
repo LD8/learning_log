@@ -18,6 +18,8 @@
         <span class="ml-auto badge badge-info badge-pill font-weight-light float-right">updated: {{ entry.date_added | date:"M-d-Y" }}</span>    
         {% endfor %}
     </a>
+    {% empty %}
+    <p class="text-muted">There are no topics yet. Please add a new topic.</p>
     {% endfor %}
 </div>
 {% endblock content %}
