@@ -3,8 +3,6 @@ from .models import Topic, Entry
 from .forms import TopicForm, EntryForm
 from django.contrib.auth.decorators import login_required
 
-# Create your views here.
-
 
 def index(request):
     '''home page'''
@@ -147,7 +145,7 @@ def edit_topics(request, topic_pk=None):
 @login_required
 def edit_topic_page(request, topic_pk, entry_pk=None):
     '''editing the topic name or editing/deleting entry names under that topic'''
-    # get the correct topic object 
+    # get the correct topic object
     topic = get_object_or_404(Topic, pk=topic_pk)
 
     # check if the topic's owner is the logged-in user
@@ -172,7 +170,7 @@ def edit_topic_page(request, topic_pk, entry_pk=None):
                 entry_form = EntryForm(instance=entry, data=request.POST)
                 if entry_form.is_valid():
                     entry_form.save()
-            
+
             if 'delete' in request.POST:
                 # user wants to delete an entry
                 entry.delete()
