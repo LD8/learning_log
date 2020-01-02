@@ -133,3 +133,8 @@ LOGIN_URL = 'users:login' # Django will send the user to this URL if the user ha
 # Heroku settings
 import django_heroku
 django_heroku.settings(locals())
+
+if os.environ.get('DEBUG') == 'TRUE':
+    DEBUG = True
+elif os.environ.get('DEBUG') == 'FALSE':
+    DEBUG = False

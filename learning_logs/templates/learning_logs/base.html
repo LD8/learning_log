@@ -34,8 +34,7 @@
                     <a class="nav-link" href="{% url 'users:logout' %}">Log Out</a></li>
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'users:register' %}">Register</a>
-                    <span class="text-muted">&raquo;</span></li>
+                    <a class="nav-link" href="{% url 'users:register' %}">Register</a></li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'users:login' %}">Log In</a></li>
                 {% endif %}
