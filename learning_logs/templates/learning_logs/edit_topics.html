@@ -1,22 +1,22 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block header %}
+<h3 class="font-weight-light">Please edit and save</h3>
+{% endblock header %}
 
 {% block content %}
-    <h3>Topics you have created</h3>
-    <hr>
-    <ul class="">
-        {% for form in topic_lst %}
-        <li class="mb-5">
-            <form class="" 
-            action="{% url 'learning_logs:edit_topic' form.instance.pk %}" 
-            method="POST">
-                {% csrf_token %}
-                {{ form }}
-                <button class="btn btn-info" name="save">save</button>
-                <button class="btn btn-danger" name="delete">delete</button>
-            </form>
-        </li>
-        <hr>
-        {% endfor %}
-    </ul>
-    <a class="btn btn-info" href="{% url 'learning_logs:topics' %}">Done</a>
+<ul class="list-group">
+    {% for form in topic_lst %}
+    <li class="list-group-item rounded-lg mb-5" style="background-color: rgba(249, 247, 243, 0);">
+        <form class="form display-inline" action="{% url 'learning_logs:edit_topic' form.instance.pk %}" method="POST">
+            {% csrf_token %}
+            {% bootstrap_form form %}
+            <button class="btn btn-info btn-sm px-3" name="save">save</button>
+            <button class="btn btn-danger btn-sm float-right" name="delete">delete</button>
+        </form>
+    </li>
+    {% endfor %}
+    <a class="btn btn-info px-4 ml-auto" href="{% url 'learning_logs:topics' %}">Done</a>
+</ul>
 {% endblock content %}

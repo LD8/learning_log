@@ -1,17 +1,26 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block header %}
+<h3 class="text-info font-weight-light">Please log in</h3>
+{% endblock header %}
 
 {% block content %}
-<section class="container text-center ">
-    <h3 class="text-info">Log In</h3>
-    <hr>
-    <!-- {% if form.errors %}
+<!-- 
+    {% if form.errors %}
     <p>Please check your username and password and try again.</p>
-    {% endif %} -->
-    <form class="form-group text-info " action="{% url 'users:login' %}" method="POST">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-info px-4" name="submit">Log In</button>
-        <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
-    </form>
-</section>
+    {% endif %} 
+    this block is not necessary because bootstrap takes care of it instead-->
+<form class="form text-info" action="{% url 'users:login' %}" method="POST">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <button class="btn btn-info px-4" name="submit">Log In &raquo;</button>
+    <input type="hidden" name="next" value="{% url 'learning_logs:index' %}">
+</form>
+<hr>
+<div class="">
+    <p class="text-muted"><small>If you do not have an account, please register a new one -</small></p>
+    <a class="btn btn-info px-4 py-2" href="{% url 'users:register' %}">Register &raquo;</a>
+</div>
+
 {% endblock content %}

@@ -1,11 +1,13 @@
 {% extends 'learning_logs/base.html' %}
 
+{% block header %}
+<h5 class="font-weight-light"><span class="text-muted">Topic  &raquo; </span><a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{entry.topic}}</a> <span class="text-muted">&raquo;</span></h5>
+{% endblock header %}
+
 {% block content %}
-<h5><a href="{% url 'learning_logs:topic' entry.topic.pk %}">{{entry.topic}}</a> ></h5>
-<hr>
 <h4>{{ entry.title }}</h4>
-<p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
 <p>{{ entry.text | linebreaks }}</p>
-<a class="btn btn-outline-secondary" href="{% url 'learning_logs:edit_entry' entry.topic.pk entry.pk %}">edit</a>
-<hr>
+<a class="btn btn-outline-secondary btn-sm float-right px-3" href="{% url 'learning_logs:edit_entry' entry.topic.pk entry.pk %}">edit</a>
+<p class="text-muted">{{ entry.date_added | date:'M-d-y H:i'}}</p>
+
 {% endblock content %}

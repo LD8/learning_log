@@ -35,7 +35,10 @@ INSTALLED_APPS = [
     'learning_logs',
     'users',
 
-    # Default apps
+    # 3rd party app (install command (venv)$ pip install django-bootstrap4)
+    'bootstrap4',
+
+    # Default django apps
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',

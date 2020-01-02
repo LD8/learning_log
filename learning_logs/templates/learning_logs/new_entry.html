@@ -1,12 +1,17 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+{% block header %}
+<div class="">
+    <span class="text-muted">Topic  &raquo; </span>
+    <a href="{% url 'learning_logs:topic' topic.pk %}">&nbsp{{ topic }} </a><span class="text-muted"> &raquo; </span><span class="text-info">  New Entry:</span>
+</div>
+{% endblock header %}
 
 {% block content %}
-<div class="d-flex">
-    <a href="{% url 'learning_logs:topic' topic.pk %}">{{ topic }} </a><p> > Add a new Entry here:</p>
-</div>
-<form action="{% url 'learning_logs:new_entry' topic.pk %}" method="POST">
+<form class="form" action="{% url 'learning_logs:new_entry' topic.pk %}" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Add</button>
+    {% bootstrap_form form %}
+    <button class="btn btn-info" type="submit">Add</button>
+    <a class="btn btn-outline-danger" href="{% url 'learning_logs:topic' topic.pk %}">Cancel</a>
 </form>
 {% endblock content %}

@@ -1,21 +1,22 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
 
-{% block content %}
-<form  action="{% url 'learning_logs:edit_topic_page' topic_form.instance.pk %}" method="POST">
+{% block header %}
+<form class="" action="{% url 'learning_logs:edit_topic_page' topic_form.instance.pk %}" method="POST">
     {% csrf_token %}
-    <h5>Topic: </h5>
-    {{ topic_form }}
-    <button class="btn btn-info" name="submit">save</button>
+    <h5 class="">Topic <span class="text-muted">&raquo;</span> </h5>
+    {% bootstrap_form topic_form %}
+    <button class="btn btn-info" style="height:48px" name="submit">save</button>
     <input type="hidden" name="next" value="{% url 'learning_logs:edit_topic_page' topic_form.instance.pk %}">
 </form>
-<hr>
-<div class="containter">
+{% endblock header %}
+{% block content %}
 
     {% for form in entry_lst %}
-    <form class="p-3" action="{% url 'learning_logs:edit_topic_page_entry' topic_form.instance.pk form.instance.pk %}"
+    <form class="form" action="{% url 'learning_logs:edit_topic_page_entry' topic_form.instance.pk form.instance.pk %}"
         method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% bootstrap_form form %}
         <button class="btn btn-info" name="save">save</button>
         <button class="btn btn-danger" name="delete">delete</button>
         <input type="hidden" name="next"
@@ -24,7 +25,6 @@
     <hr>
     {% endfor %}
 
-</div>
 
 <a class="btn btn-info" href="{% url 'learning_logs:topic' topic_form.instance.pk %}">Done</a>
 {% endblock content %}

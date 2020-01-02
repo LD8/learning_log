@@ -1,26 +1,31 @@
 {% extends 'learning_logs/base.html' %}
 
-{% block content %}
-<h1 class="d-flex text-dark font-weight-light">
+{% block header %}
+<h1 class="text-dark font-weight-light">
     {{ topic }}
-    <small class="ml-auto">
-        <a class="btn btn-outline-info" href="{% url 'learning_logs:edit_topic_page' topic.pk %}">edit entries</a>
-    </small>
 </h1>
-<hr>
-<ul class="list-group">
-    {% for entry in entries %}
-    <li class="list-group-item list-group-item-action">
-        <div class="d-flex">
-            <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}"><h5 class="font-weight-light">{{ entry.title }}</h5></a>
-            <a class="ml-auto btn btn-outline-secondary" href="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}">edit</a>
-        </div>
-        <p>{{ entry.date_added | date:'M-d-y H:i'}}</p>
+{% endblock header %}
+
+{% block content %}
+<div class="mb-3">
+    <a class="btn btn-info btn-sm" href="{% url 'learning_logs:new_entry' topic.pk %}">add a new entry</a>
+    <a class="btn btn-outline-info btn-sm float-right" href="{% url 'learning_logs:edit_topic_page' topic.pk %}">edit entries</a>
+</div>
+{% for entry in entries %}
+<li class="card mb-1">
+    <div class="card-header">
+        <a href="{% url 'learning_logs:entry' topic.pk entry.pk %}">
+            <h5 class="font-weight-light my-auto">{{ entry.title }}</h5>
+        </a>
+    </div>
+    <div class="card-body">
         <!-- | is a template filter: a function modifies the value in a template variable -->
         <p>{{ entry.text | linebreaks }}</p>
-    </li>
-    {% endfor %}
-</ul>
-<hr>
-<a class="btn btn-info mt-3" href="{% url 'learning_logs:new_entry' topic.pk %}">Add a new entry</a>
+        <a class="ml-auto btn btn-outline-secondary btn-sm px-4 float-right"
+            href="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}">edit</a>
+        <p class="text-muted">{{ entry.date_added | date:'H:i M-d-y' }}</p>
+    </div>
+</li>
+{% endfor %}
+
 {% endblock content %}

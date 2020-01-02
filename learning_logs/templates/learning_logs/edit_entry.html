@@ -1,15 +1,18 @@
 {% extends 'learning_logs/base.html' %}
+{% load bootstrap4 %}
+
+{% block header %}
+<h5>Topic <span class="text-muted">&raquo; </span><a href="{% url 'learning_logs:topic' topic.pk %}">{{topic}}</a> <span class="text-muted">&raquo;</span></h5>
+{% endblock header %}
 
 {% block content %}
-<h5>Topic: <a href="{% url 'learning_logs:topic' topic.pk %}">{{topic}}</a> ></h5>
-<hr>
-<form action="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}" method="POST">
+<form class="form" action="{% url 'learning_logs:edit_entry' topic.pk entry.pk %}" method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     <div class="d-flex">
-        <button class="btn btn-info" name="submit">Save</button>
-        <a class="btn btn-outline-danger ml-auto"
-            href="{% url 'learning_logs:entry' entry.topic.pk entry.pk %}">Cancel</a>
+        <button class="btn btn-info btn-sm px-3" name="submit">Save</button>
+        <a class="btn btn-outline-danger ml-auto btn-sm"
+            href="{% url 'learning_logs:topic' entry.topic.pk %}">Cancel</a>
     </div>
 </form>
 <hr>
